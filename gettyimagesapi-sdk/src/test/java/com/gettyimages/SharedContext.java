@@ -13,7 +13,7 @@ import static org.junit.Assert.fail;
 /**
  * Shared test class, primarily used for authentication calls.
  */
-public class Context {
+public class SharedContext {
 
     private static final String GETTYIMAGESAPI_ENV_NAME_APIKEY = "GettyImagesApi_ApiKey";
     private static final String GETTYIMAGESAPI_ENV_NAME_APISECRET = "GettyImagesApi_ApiSecret";
@@ -29,22 +29,22 @@ public class Context {
 
     @Given("^I have an apikey$")
     public void i_have_an_apikey() throws Throwable {
-        assertTrue(Context.ApiKeyExists());
+        assertTrue("Expected API Key to exist", SharedContext.ApiKeyExists());
     }
 
     @Given("^an apisecret$")
     public void an_apisecret() throws Throwable {
-        assertTrue(Context.ApiSecretExists());
+        assertTrue("Expected API Secret to exist", SharedContext.ApiSecretExists());
     }
 
     @Given("^a username$")
     public void a_username() throws Throwable {
-        assertTrue(Context.UsernameExists());
+        assertTrue("Expected Username to exist", SharedContext.UsernameExists());
     }
 
     @Given("^a password$")
     public void a_password() throws Throwable {
-        assertTrue(Context.UserPasswordExists());
+        assertTrue("Expected User Password to exist", SharedContext.UserPasswordExists());
     }
 
     public static Token GetAccessToken() throws SdkException {

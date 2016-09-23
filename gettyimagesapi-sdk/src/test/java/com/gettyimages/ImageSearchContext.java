@@ -25,14 +25,14 @@ public class ImageSearchContext {
     public void i_configure_my_search_for_an_image_family(String imageFamily) throws Throwable {
         switch (imageFamily.toLowerCase()) {
             case "creative": {
-                creativeImagesSearch = Context.GetApiClientWithResourceOwnerCredentials()
+                creativeImagesSearch = SharedContext.GetApiClientWithResourceOwnerCredentials()
                         .Search()
                         .Images()
                         .Creative();
                 isCreativeSearch = true;
             }
             case "editorial": {
-                editorialImagesSearch = Context.GetApiClientWithResourceOwnerCredentials()
+                editorialImagesSearch = SharedContext.GetApiClientWithResourceOwnerCredentials()
                         .Search()
                         .Images()
                         .Editorial();
@@ -63,9 +63,9 @@ public class ImageSearchContext {
         JSONObject resultJson = (JSONObject) new JSONObject(searchResult);
         long resultCount = resultJson.getLong("result_count");
         JSONArray images = resultJson.getJSONArray("images");
-        assertNotNull(resultCount);
+        assertNotNull("Expected response to include a result count", resultCount);
         if(resultCount > 0) {
-            assertTrue(images.length() > 0);
+            assertTrue("Expected image count to be greater than zero", images.length() > 0);
         }
     }
 }
