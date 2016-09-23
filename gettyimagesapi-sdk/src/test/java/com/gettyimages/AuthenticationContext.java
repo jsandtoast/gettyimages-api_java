@@ -15,26 +15,6 @@ public class AuthenticationContext {
     private Token accessToken;
     private String refreshToken;
 
-    @Given("^I have an apikey$")
-    public void i_have_an_apikey() throws Throwable {
-        assertTrue(Context.ApiKeyExists());
-    }
-
-    @Given("^an apisecret$")
-    public void an_apisecret() throws Throwable {
-        assertTrue(Context.ApiSecretExists());
-    }
-
-    @Given("^a username$")
-    public void a_username() throws Throwable {
-        assertTrue(Context.UsernameExists());
-    }
-
-    @Given("^a password$")
-    public void a_password() throws Throwable {
-        assertTrue(Context.UserPasswordExists());
-    }
-
     @When("^I ask the sdk for an authentication token$")
     public void i_ask_the_sdk_for_an_authentication_token() throws Throwable {
         accessToken = Context.GetAccessToken();

@@ -1,10 +1,13 @@
 package com.gettyimages;
 
+import cucumber.api.java.en.Given;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
@@ -22,6 +25,26 @@ public class Context {
     static {
         ApiProperties = new HashMap<>();
         GetEnvironmentVariables();
+    }
+
+    @Given("^I have an apikey$")
+    public void i_have_an_apikey() throws Throwable {
+        assertTrue(Context.ApiKeyExists());
+    }
+
+    @Given("^an apisecret$")
+    public void an_apisecret() throws Throwable {
+        assertTrue(Context.ApiSecretExists());
+    }
+
+    @Given("^a username$")
+    public void a_username() throws Throwable {
+        assertTrue(Context.UsernameExists());
+    }
+
+    @Given("^a password$")
+    public void a_password() throws Throwable {
+        assertTrue(Context.UserPasswordExists());
     }
 
     public static Token GetAccessToken() throws SdkException {
@@ -45,6 +68,14 @@ public class Context {
         return creds.GetAccessToken();
     }
 
+    public static ApiClient GetApiClientWithResourceOwnerCredentials() {
+        return ApiClient.GetApiClientWithResourceOwnerCredentials(
+                GetProp(GETTYIMAGESAPI_ENV_NAME_APIKEY),
+                GetProp(GETTYIMAGESAPI_ENV_NAME_APISECRET),
+                GetProp(GETTYIMAGESAPI_ENV_NAME_USERNAME),
+                GetProp(GETTYIMAGESAPI_ENV_NAME_USERPASSWORD)
+        );
+    }
     private static String GetProp(String gettyimagesapiEnvName) {
         return ApiProperties.get(gettyimagesapiEnvName);
     }
