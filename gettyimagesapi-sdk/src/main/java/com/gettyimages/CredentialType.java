@@ -5,5 +5,6 @@ enum CredentialType
     None,
     ApiKey,
     ClientCredentials,
-    ResourceOwner
+    ResourceOwner,
+    RefreshToken
 }
