@@ -238,7 +238,7 @@ public abstract class BaseSearchImages {
         map.put(PageSizeString, val);
     }
 
-    public void withPhrase(String val) {
+    protected void withPhrase(String val) {
         map.put(PhraseString, val);
     }
 
