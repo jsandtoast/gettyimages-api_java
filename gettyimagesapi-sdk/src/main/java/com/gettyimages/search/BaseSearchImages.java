@@ -11,7 +11,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-public class BaseSearchImages {
+public abstract class BaseSearchImages {
     protected String V3SearchImagesPath = "/search/images";
     private String SpaceString = " ";
     private String EditorialString = "editorial";
@@ -238,7 +238,7 @@ public class BaseSearchImages {
         map.put(PageSizeString, val);
     }
 
-    protected void withPhrase(String val) {
+    public void withPhrase(String val) {
         map.put(PhraseString, val);
     }
 
