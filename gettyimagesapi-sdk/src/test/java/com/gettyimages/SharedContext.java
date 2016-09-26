@@ -29,51 +29,35 @@ public class SharedContext {
 
     @Given("^I have an apikey$")
     public void i_have_an_apikey() throws Throwable {
-        assertTrue("Expected API Key to exist", SharedContext.ApiKeyExists());
+        assertTrue("Expected API Key to exist", apiKeyExists());
     }
 
     @Given("^an apisecret$")
     public void an_apisecret() throws Throwable {
-        assertTrue("Expected API Secret to exist", SharedContext.ApiSecretExists());
+        assertTrue("Expected API Secret to exist", apiSecretExists());
     }
 
     @Given("^a username$")
     public void a_username() throws Throwable {
-        assertTrue("Expected Username to exist", SharedContext.UsernameExists());
+        assertTrue("Expected Username to exist", usernameExists());
     }
 
     @Given("^a password$")
     public void a_password() throws Throwable {
-        assertTrue("Expected User Password to exist", SharedContext.UserPasswordExists());
+        assertTrue("Expected User Password to exist", userPasswordExists());
     }
 
     public static ApiClient GetApiClientWithResourceOwnerCredentials() {
         return ApiClient.GetApiClientWithResourceOwnerCredentials(
-                GetProp(SharedContext.GETTYIMAGESAPI_ENV_NAME_APIKEY),
-                GetProp(SharedContext.GETTYIMAGESAPI_ENV_NAME_APISECRET),
-                GetProp(SharedContext.GETTYIMAGESAPI_ENV_NAME_USERNAME),
-                GetProp(SharedContext.GETTYIMAGESAPI_ENV_NAME_USERPASSWORD)
+                GetProp(GETTYIMAGESAPI_ENV_NAME_APIKEY),
+                GetProp(GETTYIMAGESAPI_ENV_NAME_APISECRET),
+                GetProp(GETTYIMAGESAPI_ENV_NAME_USERNAME),
+                GetProp(GETTYIMAGESAPI_ENV_NAME_USERPASSWORD)
         );
     }
 
-    public static boolean ApiKeyExists() {
-        return ApiProperties.containsKey(GETTYIMAGESAPI_ENV_NAME_APIKEY);
-    }
-
-    public static boolean ApiSecretExists() {
-        return ApiProperties.containsKey(GETTYIMAGESAPI_ENV_NAME_APISECRET);
-    }
-
-    public static boolean UsernameExists() {
-        return ApiProperties.containsKey(GETTYIMAGESAPI_ENV_NAME_USERNAME);
-    }
-
-    public static boolean UserPasswordExists() {
-        return ApiProperties.containsKey(GETTYIMAGESAPI_ENV_NAME_USERPASSWORD);
-    }
-
     public static String GetProp(String gettyimagesapiEnvName) {
-        return SharedContext.ApiProperties.get(gettyimagesapiEnvName);
+        return ApiProperties.get(gettyimagesapiEnvName);
     }
 
     private static void GetEnvironmentVariables() {
@@ -93,5 +77,19 @@ public class SharedContext {
         }
     }
 
+    private static boolean apiKeyExists() {
+        return ApiProperties.containsKey(GETTYIMAGESAPI_ENV_NAME_APIKEY);
+    }
 
+    private static boolean apiSecretExists() {
+        return ApiProperties.containsKey(GETTYIMAGESAPI_ENV_NAME_APISECRET);
+    }
+
+    private static boolean usernameExists() {
+        return ApiProperties.containsKey(GETTYIMAGESAPI_ENV_NAME_USERNAME);
+    }
+
+    private static boolean userPasswordExists() {
+        return ApiProperties.containsKey(GETTYIMAGESAPI_ENV_NAME_USERPASSWORD);
+    }
 }
