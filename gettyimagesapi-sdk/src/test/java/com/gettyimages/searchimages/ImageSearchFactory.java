@@ -1,5 +1,6 @@
-package com.gettyimages;
+package com.gettyimages.searchimages;
 
+import com.gettyimages.SharedContext;
 import com.gettyimages.search.*;
 
 /**
@@ -30,6 +31,11 @@ public class ImageSearchFactory {
                         .Search()
                         .Images()
                         .Editorial();
+            }
+            case "blended" : {
+                return SharedContext.GetApiClientWithResourceOwnerCredentials()
+                        .Search()
+                        .Images();
             }
             default:
                 throw new IllegalArgumentException("Invalid image family: " + imageFamily);

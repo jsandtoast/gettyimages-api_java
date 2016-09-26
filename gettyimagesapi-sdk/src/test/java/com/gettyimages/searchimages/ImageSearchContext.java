@@ -1,11 +1,7 @@
 package com.gettyimages.searchimages;
 
-import com.gettyimages.ImageSearchFactory;
 import com.gettyimages.SdkException;
-import com.gettyimages.search.EditorialSegment;
-import com.gettyimages.search.GraphicalStyles;
-import com.gettyimages.search.ImagesSearch;
-import com.gettyimages.search.LicenseModel;
+import com.gettyimages.search.*;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -52,23 +48,6 @@ public class ImageSearchContext {
         }
     }
 
-    @Then("^I get a response back that has my images$")
-    public void i_get_a_response_back_that_has_my_images() throws Throwable {
-        assertNotNull(searchResult);
-        resultCount = searchResult.getLong("result_count");
-        resultImages = searchResult.getJSONArray("images");
-        assertNotNull("Expected response to include a result count", resultCount);
-        if(resultCount > 0) {
-            assertTrue("Expected image count to b greater than zero", resultImages.length() > 0);
-        }
-    }
-
-    @Then("^only required return fields plus (.*) are returned$")
-    public void only_required_return_fields_plus_response_field_are_returned(String responseField) throws Throwable {
-        String responseFieldValue = resultImages.getJSONObject(0).getString(responseField);
-        assertTrue(responseFieldValue != null && responseFieldValue.length() > 0);
-    }
-
     @When("^I specify a graphical (.*)$")
     public void I_specify_a_graphical_style(GraphicalStyles style) throws Throwable {
         imagesSearch.WithGraphicalStyle(style);
@@ -102,4 +81,27 @@ public class ImageSearchContext {
         }
         imagesSearch.WithLicenseModel(model);
     }
+
+    @When("^I specify an orientation (.*)$")
+    public void I_specify_an_orientation_value(Orientation orientation) throws Throwable {
+        imagesSearch.WithOrientation(orientation);
+    }
+
+    @Then("^I get a response back that has my images$")
+    public void i_get_a_response_back_that_has_my_images() throws Throwable {
+        assertNotNull(searchResult);
+        resultCount = searchResult.getLong("result_count");
+        resultImages = searchResult.getJSONArray("images");
+        assertNotNull("Expected response to include a result count", resultCount);
+        if(resultCount > 0) {
+            assertTrue("Expected image count to b greater than zero", resultImages.length() > 0);
+        }
+    }
+
+    @Then("^only required return fields plus (.*) are returned$")
+    public void only_required_return_fields_plus_response_field_are_returned(String responseField) throws Throwable {
+        String responseFieldValue = resultImages.getJSONObject(0).getString(responseField);
+        assertTrue(responseFieldValue != null && responseFieldValue.length() > 0);
+    }
+
 }
