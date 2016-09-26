@@ -5,6 +5,7 @@ import com.gettyimages.SdkException;
 import com.gettyimages.search.EditorialSegment;
 import com.gettyimages.search.GraphicalStyles;
 import com.gettyimages.search.ImagesSearch;
+import com.gettyimages.search.LicenseModel;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -36,8 +37,8 @@ public class ImageSearchContext {
     }
 
     @When("^I specify (.*) editorial segment$")
-    public void I_specify_an_editorial_segment(String segment) throws Throwable {
-        imagesSearch.WithEditorialSegment(EditorialSegment.valueOf(segment.toUpperCase()));
+    public void I_specify_an_editorial_segment(EditorialSegment segment) throws Throwable {
+        imagesSearch.WithEditorialSegment(segment);
     }
 
     @When("^I search for (.*)")
@@ -69,7 +70,36 @@ public class ImageSearchContext {
     }
 
     @When("^I specify a graphical (.*)$")
-    public void I_specify_a_graphical_style(String style) throws Throwable {
-        imagesSearch.WithGraphicalStyle(GraphicalStyles.valueOf(style.toUpperCase()));
+    public void I_specify_a_graphical_style(GraphicalStyles style) throws Throwable {
+        imagesSearch.WithGraphicalStyle(style);
+    }
+
+    @When("^I specify I want only embeddable images$")
+    public void I_specify_I_want_only_embeddable_images() throws Throwable {
+        imagesSearch.WithEmbedContentOnly(true);
+    }
+
+    @When("^I specify I want to exclude images containing nudity$")
+    public void I_specify_I_want_to_exclude_images_containing_nudity() throws Throwable {
+        imagesSearch.WithExcludeNudity(true);
+    }
+
+    @When("^I specify a license model (.*)$")
+    public void I_specify_a_license_model(String modelStr) throws Throwable {
+        LicenseModel model;
+        switch(modelStr.toLowerCase()) {
+            case "RightsManaged" : {
+                model = LicenseModel.RIGHTS_MANAGED;
+                break;
+            }
+            case "RoyaltyFree" : {
+                model = LicenseModel.ROYALTY_FREE;
+                break;
+            }
+            default:
+                model = LicenseModel.NONE;
+                break;
+        }
+        imagesSearch.WithLicenseModel(model);
     }
 }
