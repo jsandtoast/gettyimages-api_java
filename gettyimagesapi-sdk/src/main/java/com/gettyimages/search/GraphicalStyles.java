@@ -2,8 +2,22 @@ package com.gettyimages.search;
 
 public enum GraphicalStyles
 {
-    None,
-    Fine_Art,
-    Photography,
-    Illustration
+    NONE("none"),
+    FINE_ART("fine_art"),
+    PHOTOGRAPHY("photography"),
+    ILLUSTRATION("illustration");
+
+    /**
+     * Used for query parameter naming during the REST call.
+     */
+    private String val;
+
+    GraphicalStyles(String val) {
+        this.val = val;
+    }
+
+    @Override
+    public String toString() {
+        return val;
+    }
 }

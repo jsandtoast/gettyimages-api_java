@@ -275,7 +275,7 @@ public abstract class BaseSearchImages {
         } else {
             graphicalStyles = EnumSet.noneOf(GraphicalStyles.class);
         }
-        if (val != GraphicalStyles.None) {
+        if (val != GraphicalStyles.NONE) {
             graphicalStyles.add(val);
         }
 
@@ -290,7 +290,7 @@ public abstract class BaseSearchImages {
         } else {
             orientations = EnumSet.noneOf(Orientation.class);
         }
-        if (val != Orientation.None) {
+        if (val != Orientation.NONE) {
             orientations.add(val);
         }
 
@@ -305,7 +305,7 @@ public abstract class BaseSearchImages {
         } else {
             segments = EnumSet.noneOf(EditorialSegment.class);
         }
-        if (seg != EditorialSegment.None) {
+        if (seg != EditorialSegment.NONE) {
             segments.add(seg);
         }
 
@@ -320,7 +320,7 @@ public abstract class BaseSearchImages {
         } else {
             licenseModels = EnumSet.noneOf(LicenseModel.class);
         }
-        if (val != LicenseModel.None) {
+        if (val != LicenseModel.NONE) {
             licenseModels.add(val);
         }
         map.put(LicenseModelsString, licenseModels);
