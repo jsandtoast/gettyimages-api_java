@@ -2,7 +2,7 @@ package com.gettyimages;
 
 import java.util.Date;
 
-class Token
+public class Token
 {
     private String RefreshTokenString;
     private Date Expiration;

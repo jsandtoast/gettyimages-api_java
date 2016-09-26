@@ -15,12 +15,12 @@ import static org.junit.Assert.fail;
  */
 public class SharedContext {
 
-    private static final String GETTYIMAGESAPI_ENV_NAME_APIKEY = "GettyImagesApi_ApiKey";
-    private static final String GETTYIMAGESAPI_ENV_NAME_APISECRET = "GettyImagesApi_ApiSecret";
-    private static final String GETTYIMAGESAPI_ENV_NAME_USERNAME = "GettyImagesApi_UserName";
-    private static final String GETTYIMAGESAPI_ENV_NAME_USERPASSWORD = "GettyImagesApi_UserPassword";
-    private static final String BASEURL = "https://api.gettyimages.com";
-    private static Map<String, String> ApiProperties;
+    public static final String GETTYIMAGESAPI_ENV_NAME_APIKEY = "GettyImagesApi_ApiKey";
+    public static final String GETTYIMAGESAPI_ENV_NAME_APISECRET = "GettyImagesApi_ApiSecret";
+    public static final String GETTYIMAGESAPI_ENV_NAME_USERNAME = "GettyImagesApi_UserName";
+    public static final String GETTYIMAGESAPI_ENV_NAME_USERPASSWORD = "GettyImagesApi_UserPassword";
+    public static final String BASEURL = "https://api.gettyimages.com";
+    public static Map<String, String> ApiProperties;
 
     static {
         ApiProperties = new HashMap<>();
@@ -47,37 +47,13 @@ public class SharedContext {
         assertTrue("Expected User Password to exist", SharedContext.UserPasswordExists());
     }
 
-    public static Token GetAccessToken() throws SdkException {
-        Credentials creds = Credentials.GetInstance(
-                GetProp(GETTYIMAGESAPI_ENV_NAME_APIKEY),
-                GetProp(GETTYIMAGESAPI_ENV_NAME_APISECRET),
-                GetProp(GETTYIMAGESAPI_ENV_NAME_USERNAME),
-                GetProp(GETTYIMAGESAPI_ENV_NAME_USERPASSWORD),
-                BASEURL
-        );
-        return creds.GetAccessToken();
-    }
-
-    public static Token GetAccessTokenViaRefreshToken(String refreshToken) throws SdkException {
-        Credentials creds = Credentials.GetInstance(
-                GetProp(GETTYIMAGESAPI_ENV_NAME_APIKEY),
-                GetProp(GETTYIMAGESAPI_ENV_NAME_APISECRET),
-                refreshToken,
-                BASEURL
-        );
-        return creds.GetAccessToken();
-    }
-
     public static ApiClient GetApiClientWithResourceOwnerCredentials() {
         return ApiClient.GetApiClientWithResourceOwnerCredentials(
-                GetProp(GETTYIMAGESAPI_ENV_NAME_APIKEY),
-                GetProp(GETTYIMAGESAPI_ENV_NAME_APISECRET),
-                GetProp(GETTYIMAGESAPI_ENV_NAME_USERNAME),
-                GetProp(GETTYIMAGESAPI_ENV_NAME_USERPASSWORD)
+                GetProp(SharedContext.GETTYIMAGESAPI_ENV_NAME_APIKEY),
+                GetProp(SharedContext.GETTYIMAGESAPI_ENV_NAME_APISECRET),
+                GetProp(SharedContext.GETTYIMAGESAPI_ENV_NAME_USERNAME),
+                GetProp(SharedContext.GETTYIMAGESAPI_ENV_NAME_USERPASSWORD)
         );
-    }
-    private static String GetProp(String gettyimagesapiEnvName) {
-        return ApiProperties.get(gettyimagesapiEnvName);
     }
 
     public static boolean ApiKeyExists() {
@@ -96,6 +72,10 @@ public class SharedContext {
         return ApiProperties.containsKey(GETTYIMAGESAPI_ENV_NAME_USERPASSWORD);
     }
 
+    public static String GetProp(String gettyimagesapiEnvName) {
+        return SharedContext.ApiProperties.get(gettyimagesapiEnvName);
+    }
+
     private static void GetEnvironmentVariables() {
         List<String> environmentVariables = new ArrayList<String>() {{
             add(GETTYIMAGESAPI_ENV_NAME_APIKEY);
@@ -112,4 +92,6 @@ public class SharedContext {
             ApiProperties.put(key, val);
         }
     }
+
+
 }

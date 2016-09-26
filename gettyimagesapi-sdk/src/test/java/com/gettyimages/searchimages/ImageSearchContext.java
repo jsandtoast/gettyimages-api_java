@@ -28,7 +28,6 @@ public class ImageSearchContext {
 
     @When("^I specify that I only want to return (.*) with my search results$")
     public void i_specify_that_I_only_want_to_return_a_response_field_with_my_search_results(String responseField) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         imagesSearch.WithResponseField(responseField);
     }
 
