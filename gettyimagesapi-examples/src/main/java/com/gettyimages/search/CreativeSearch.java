@@ -12,18 +12,18 @@ public class CreativeSearch
 
     public static void main( String[] args )
     {
-        ApiClient connectSdk = ApiClient.GetApiClientWithResourceOwnerCredentials(apiKey, apiSecret, userName, userPassword);
+        ApiClient client = ApiClient.GetApiClientWithResourceOwnerCredentials(apiKey, apiSecret, userName, userPassword);
         String searchTerm = "cat";
 
         try {
-            Search search = connectSdk.Search();
-            ICreativeImagesSearch creativeImageSearch =
-                    search.Images()
-                            .Creative()
-                            .WithPhrase(searchTerm)
-                            .WithPage(10);
-            String result = creativeImageSearch.ExecuteAsync();
+            ImagesSearch search = client.Search()
+                .Images()
+                .Creative()
+                .WithPhrase(searchTerm)
+                .WithPage(10);
+            String result = search.ExecuteAsync();
             System.out.print(result);
+
         } catch (SdkException e) {
             System.out.println("Exception occurred while searching for creative images: " + e.getLocalizedMessage());
             System.exit(-1);

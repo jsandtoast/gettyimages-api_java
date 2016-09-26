@@ -11,7 +11,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-public class BaseSearchImages {
+public abstract class BaseSearchImages {
     protected String V3SearchImagesPath = "/search/images";
     private String SpaceString = " ";
     private String EditorialString = "editorial";
