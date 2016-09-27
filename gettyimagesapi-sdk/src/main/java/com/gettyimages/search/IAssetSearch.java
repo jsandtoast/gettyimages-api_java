@@ -16,8 +16,6 @@ public interface IAssetSearch<T extends IAssetSearch<T>> {
 
     T WithPhrase(String val);
 
-    T WithEmbedContentOnly(boolean val);
-
     T WithSortOrder(String val);
 
     T WithExcludeNudity(boolean val);
@@ -30,7 +28,7 @@ public interface IAssetSearch<T extends IAssetSearch<T>> {
 
     T WithLicenseModel(LicenseModel val);
 
-    T Creative();
+    CreativeImagesSearch Creative();
 
-    T Editorial();
+    EditorialImagesSearch Editorial();
 }

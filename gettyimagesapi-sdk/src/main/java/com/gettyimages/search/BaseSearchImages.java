@@ -25,7 +25,6 @@ public abstract class BaseSearchImages {
     private String PageSizeString = "page_size";
     private String PhraseString = "phrase";
     private String SortOrderString = "sort_order";
-    private String EmbedContentOnlyString = "embed_content_only";
     private String ExcludeNudityString = "exclude_nudity";
     private String AssetTypeString = "asset_type";
 
@@ -99,10 +98,6 @@ public abstract class BaseSearchImages {
         return (EnumSet<Orientation>) map.get(OrientationsString);
     }
 
-    protected boolean getEmbedContentOnly() {
-        return getBooleanValue(EmbedContentOnlyString);
-    }
-
     protected boolean getExcludeNudity() {
         return getBooleanValue(ExcludeNudityString);
     }
@@ -135,7 +130,7 @@ public abstract class BaseSearchImages {
         return Boolean.parseBoolean(str);
     }
 
-    protected String executeAsync() throws SdkException {
+    protected String executeAsync(Map<String, String> queryParams) throws SdkException {
         String path;
 
         String assetType = getAssetType();
@@ -145,7 +140,10 @@ public abstract class BaseSearchImages {
             path = V3SearchImagesPath + "/" + assetType;
         }
 
-        Map<String, String> queryParams = new Hashtable<String, String>();
+        if (queryParams == null) {
+            queryParams = new Hashtable<String, String>();
+        }
+
 
         if (getResponseFields() != null) {
             StringBuilder sb = new StringBuilder();
@@ -222,9 +220,6 @@ public abstract class BaseSearchImages {
         if (getExcludeNudity()) {
             queryParams.put(ExcludeNudityString, String.valueOf(getExcludeNudity()));
         }
-        if (getEmbedContentOnly()) {
-            queryParams.put(EmbedContentOnlyString, String.valueOf(getEmbedContentOnly()));
-        }
 
         WebHelper helper = new WebHelper(credentials, baseUrl);
         return helper.Get(queryParams, path);
@@ -244,10 +239,6 @@ public abstract class BaseSearchImages {
 
     protected void withSortOrder(String val) {
         map.put(SortOrderString, val);
-    }
-
-    protected void withEmbedContentOnly(boolean val) {
-        map.put(EmbedContentOnlyString, val);
     }
 
     protected void withExcludeNudity(boolean val) {
