@@ -6,6 +6,9 @@ import java.util.*;
 
 public class BlendedImagesSearchService extends ImagesSearchService implements BlendedImagesSearch<BlendedImagesSearch>{
 
+    private String EditorialString = "editorial";
+    private String CreativeString = "creative";
+
     public BlendedImagesSearchService(Credentials credentials, String baseUrl, Map map) {
         super(credentials, baseUrl, map);
     }
@@ -49,5 +52,15 @@ public class BlendedImagesSearchService extends ImagesSearchService implements B
     @Override
     public BlendedImagesSearch withLicenseModels(List<LicenseModel> licenseModels) {
         return null;
+    }
+
+    public CreativeImagesSearchService creative() {
+        map.put(AssetTypeString, CreativeString);
+        return new CreativeImagesSearchService(credentials, baseUrl, map);
+    }
+
+    public EditorialImagesSearchService editorial() {
+        map.put(AssetTypeString, EditorialString);
+        return new EditorialImagesSearchService(credentials, baseUrl, map);
     }
 }

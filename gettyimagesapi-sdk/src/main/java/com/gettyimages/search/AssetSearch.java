@@ -11,8 +11,6 @@ public abstract class AssetSearch<T extends IAssetSearch<T>>  implements IAssetS
 
     protected String V3SearchImagesPath = "/search/images";
     private String SpaceString = " ";
-    private String EditorialString = "editorial";
-    private String CreativeString = "creative";
     private String FieldsString = "fields";
     protected String GraphicalStylesString = "graphical_styles";
     private String EditorialSegmentsString = "editorial_segments";
@@ -23,7 +21,7 @@ public abstract class AssetSearch<T extends IAssetSearch<T>>  implements IAssetS
     private String PhraseString = "phrase";
     private String SortOrderString = "sort_order";
     private String ExcludeNudityString = "exclude_nudity";
-    private String AssetTypeString = "asset_type";
+    protected String AssetTypeString = "asset_type";
 
     protected String baseUrl;
     protected Credentials credentials;
@@ -304,76 +302,4 @@ public abstract class AssetSearch<T extends IAssetSearch<T>>  implements IAssetS
         }
         map.put(LicenseModelsString, licenseModels);
     }
-
-    public CreativeImagesSearchService creative() {
-
-        map.put(AssetTypeString, CreativeString);
-        return new CreativeImagesSearchService(credentials, baseUrl, map);
-    }
-
-    public EditorialImagesSearchService editorial() {
-
-        map.put(AssetTypeString, EditorialString);
-        return new EditorialImagesSearchService(credentials, baseUrl, map);
-    }
-
-//    public T WithEditorialSegment(EditorialSegment val) {
-//        super.withEditorialSegment(val);
-//        return (T) this;
-//    }
-//
-//    public T WithPage(int val) {
-//        super.withPage(val);
-//        return (T) this;
-//    }
-//
-//    public T WithPageSize(int val) {
-//        super.withPageSize(val);
-//        return (T) this;
-//    }
-//
-//    public T WithPhrase(String val) {
-//        super.withPhrase(val);
-//        return (T) this;
-//    }
-//
-//    public T WithSortOrder(String val) {
-//        super.withSortOrder(val);
-//        return (T) this;
-//    }
-//
-//    public T WithExcludeNudity(boolean val) {
-//        super.withExcludeNudity(val);
-//        return (T) this;
-//    }
-//
-//    public T WithResponseField(String val) {
-//        super.withResponseField(val);
-//        return (T) this;
-//    }
-//
-//    public T WithGraphicalStyle(GraphicalStyles val) {
-//        super.withGraphicalStyle(val);
-//        return (T) this;
-//    }
-//
-//    public T WithOrientation(Orientation val) {
-//        super.withOrientation(val);
-//        return (T) this;
-//    }
-//
-//    public T WithLicenseModel(LicenseModel val) {
-//        super.withLicenseModel(val);
-//        return (T) this;
-//    }
-//
-//    public CreativeImagesSearchService Creative() {
-//        super.creative();
-//        return new CreativeImagesSearchService(credentials, baseUrl, map);
-//    }
-//
-//    public EditorialImagesSearchService Editorial() {
-//        super.editorial();
-//        return new EditorialImagesSearchService(credentials, baseUrl, map);
-//    }
 }

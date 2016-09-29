@@ -23,8 +23,4 @@ public interface IAssetSearch<T extends IAssetSearch<T>> {
     T withKeywordIds(String keywordIds);
 
     T withProductTypes(List<ProductType> productTypes);
-
-    CreativeImagesSearchService creative();
-
-    EditorialImagesSearchService editorial();
 }

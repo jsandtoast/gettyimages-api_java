@@ -11,4 +11,6 @@ public interface BlendedImagesSearch<T> {
     T withPrestigeContentOnly(boolean prestigeContentOnly);
     T withEventIds(String eventIds);
     T withLicenseModels(List<LicenseModel> licenseModels);
+    CreativeImagesSearch creative();
+    EditorialImagesSearch editorial();
 }
