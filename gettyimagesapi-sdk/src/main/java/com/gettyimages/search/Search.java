@@ -15,7 +15,7 @@ public class Search {
         return new Search(credentials, baseUrl);
     }
 
-    public BlendedImagesSearch Images() {
-        return BlendedImagesSearch.GetInstance(credentials, baseUrl);
+    public BlendedImagesSearchService Images() {
+        return BlendedImagesSearchService.GetInstance(credentials, baseUrl);
     }
 }

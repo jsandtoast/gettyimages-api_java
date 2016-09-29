@@ -1,16 +1,12 @@
 package com.gettyimages.search;
 
-import com.gettyimages.Credentials;
-
-import java.util.Map;
+import java.util.List;
 
 /**
- * Created by jsantos on 9/26/16.
+ * Created by jsantos on 9/29/16.
  */
-public class CreativeImagesSearch extends AssetSearch<CreativeImagesSearch> {
-    public CreativeImagesSearch(Credentials credentials, String baseUrl, Map map) {
-        super(credentials, baseUrl, map);
-    }
-
-    //TODO add creative images search specific methods.
+public interface CreativeImagesSearch<T> {
+    T withGraphicalStyles(List<GraphicalStyles> graphicalStyles);
+    T withLicenseModels(List<LicenseModel> licenseModels);
+    T withPrestigeContentOnly(boolean prestigeContentOnly);
 }

@@ -1,16 +1,13 @@
 package com.gettyimages.search;
 
-import com.gettyimages.Credentials;
-
-import java.util.Map;
+import java.util.List;
 
 /**
- * Created by jsantos on 9/26/16.
+ * Created by jsantos on 9/29/16.
  */
-public class EditorialImagesSearch extends AssetSearch<EditorialImagesSearch> {
-    public EditorialImagesSearch(Credentials credentials, String baseUrl, Map map) {
-        super(credentials, baseUrl, map);
-    }
-
-    //TODO add editorial images search specific methods
+public interface EditorialImagesSearch<T> {
+    T withEntityUris(String entityUris);
+    T withEventIds(String eventIds);
+    T withGraphicalStyles(List<EditorialGraphicalStyles> graphicalStyles);
+    T withSpecificPeople(String specificPeople);
 }
