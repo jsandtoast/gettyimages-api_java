@@ -1,5 +1,7 @@
 package com.gettyimages.search;
 
+import com.gettyimages.search.filters.EditorialGraphicalStyles;
+
 import java.util.List;
 
 /**

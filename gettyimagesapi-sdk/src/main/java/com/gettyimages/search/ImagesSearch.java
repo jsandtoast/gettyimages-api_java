@@ -1,6 +1,7 @@
 package com.gettyimages.search;
 
 import com.gettyimages.SdkException;
+import com.gettyimages.search.filters.*;
 
 import java.util.List;
 

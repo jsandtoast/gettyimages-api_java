@@ -1,6 +1,7 @@
 package com.gettyimages.search;
 
 import com.gettyimages.Credentials;
+import com.gettyimages.search.filters.EditorialGraphicalStyles;
 
 import java.util.List;
 import java.util.Map;

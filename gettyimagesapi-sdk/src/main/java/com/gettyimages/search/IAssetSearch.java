@@ -1,5 +1,8 @@
 package com.gettyimages.search;
 
+import com.gettyimages.search.filters.EditorialSegment;
+import com.gettyimages.search.filters.ProductType;
+
 import java.util.List;
 
 /**

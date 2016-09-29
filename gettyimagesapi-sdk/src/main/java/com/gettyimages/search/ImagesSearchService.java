@@ -2,6 +2,7 @@ package com.gettyimages.search;
 
 import com.gettyimages.Credentials;
 import com.gettyimages.SdkException;
+import com.gettyimages.search.filters.*;
 
 import java.util.EnumSet;
 import java.util.HashMap;

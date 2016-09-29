@@ -1,5 +1,8 @@
 package com.gettyimages.search;
 
+import com.gettyimages.search.filters.GraphicalStyles;
+import com.gettyimages.search.filters.LicenseModel;
+
 import java.util.List;
 
 /**

@@ -4,6 +4,10 @@ import com.gettyimages.Credentials;
 import com.gettyimages.SdkException;
 import com.gettyimages.StringHelper;
 import com.gettyimages.WebHelper;
+import com.gettyimages.search.filters.EditorialSegment;
+import com.gettyimages.search.filters.GraphicalStyles;
+import com.gettyimages.search.filters.LicenseModel;
+import com.gettyimages.search.filters.Orientation;
 
 import java.util.*;
 
