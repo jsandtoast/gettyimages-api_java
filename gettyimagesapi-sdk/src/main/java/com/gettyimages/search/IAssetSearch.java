@@ -1,36 +1,29 @@
 package com.gettyimages.search;
 
-import com.gettyimages.SdkException;
+import com.gettyimages.search.filters.EditorialSegment;
+import com.gettyimages.search.filters.ProductType;
+
+import java.util.List;
 
 /**
  * Forces implementing classes to use method chaining.
  */
 public interface IAssetSearch<T extends IAssetSearch<T>> {
-    String ExecuteAsync() throws SdkException;
+    T withEditorialSegment(EditorialSegment val);
 
-    T WithEditorialSegment(EditorialSegment val);
+    T withPage(int val);
 
-    T WithPage(int val);
+    T withPageSize(int val);
 
-    T WithPageSize(int val);
+    T withPhrase(String val);
 
-    T WithPhrase(String val);
+    T withSortOrder(String val);
 
-    T WithEmbedContentOnly(boolean val);
+    T withExcludeNudity(boolean val);
 
-    T WithSortOrder(String val);
+    T withResponseField(String val);
 
-    T WithExcludeNudity(boolean val);
-
-    T WithResponseField(String val);
-
-    T WithGraphicalStyle(GraphicalStyles val);
-
-    T WithOrientation(Orientation val);
-
-    T WithLicenseModel(LicenseModel val);
-
-    T Creative();
-
-    T Editorial();
+//    T withKeywordIds(String keywordIds);
+//
+//    T withProductTypes(List<ProductType> productTypes);
 }

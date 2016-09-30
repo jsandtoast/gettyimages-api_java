@@ -18,10 +18,10 @@ public class CreativeSearch
         try {
             ImagesSearch search = client.Search()
                 .Images()
-                .Creative()
-                .WithPhrase(searchTerm)
-                .WithPage(10);
-            String result = search.ExecuteAsync();
+                .creative()
+                .withPhrase(searchTerm)
+                .withPage(10);
+            String result = search.executeAsync();
             System.out.print(result);
 
         } catch (SdkException e) {

@@ -1,16 +1,20 @@
 package com.gettyimages.search;
 
-import com.gettyimages.Credentials;
+import com.gettyimages.SdkException;
+import com.gettyimages.search.filters.Compositions;
+import com.gettyimages.search.filters.Ethnicity;
 
-import java.util.Hashtable;
-import java.util.Map;
-
-public class ImagesSearch extends AssetSearch<ImagesSearch> {
-    public ImagesSearch(Credentials credentials, String baseUrl, Map map) {
-        super(credentials, baseUrl, map);
-    }
-
-    public static ImagesSearch GetInstance(Credentials credentials, String baseUrl) {
-        return new ImagesSearch(credentials, baseUrl, new Hashtable());
-    }
+public interface ImagesSearch<T> {
+    T withEthnicity(Ethnicity ethnicity);
+//    T withAgeOfPeople(List<AgeOfPeople> ageOfPeople);
+//    T withArtists(String artists);
+//    T withCollectionCodes(String collectionCodes);
+//    T withIncludeCollectionsFilterType(boolean includeCollectionsFilterType);
+    T withColor(String color);
+//    T withCompositions(List<Compositions> composition);
+    T withEmbedContentOnly(boolean embedContentOnly);
+//    T withFileTypes(List<FileType> fileTypes);
+//    T withNumberOfPeople(List<NumberOfPeople> numberOfPeople);
+    String executeAsync() throws SdkException;
+//    T withOrientations(List<Orientation> orientations);
 }

@@ -1,0 +1,16 @@
+package com.gettyimages.search.filters;
+
+public enum Ethnicity {
+    BLACK,
+    CAUCASIAN,
+    EAST_ASIAN,
+    HISPANIC_LATINO,
+    JAPANESE,
+    MIDDLE_EASTERN,
+    MIXED_RACE_PERSON,
+    MULTIETHNIC_GROUP,
+    NATIVE_AMERICAN_FIRST_NATIONS,
+    PACIFIC_ISLANDER,
+    SOUTH_ASIAN,
+    SOUTHEAST_ASIAN,
+}
