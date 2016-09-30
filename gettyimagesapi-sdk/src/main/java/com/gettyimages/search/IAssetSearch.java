@@ -23,7 +23,7 @@ public interface IAssetSearch<T extends IAssetSearch<T>> {
 
     T withResponseField(String val);
 
-    T withKeywordIds(String keywordIds);
-
-    T withProductTypes(List<ProductType> productTypes);
+//    T withKeywordIds(String keywordIds);
+//
+//    T withProductTypes(List<ProductType> productTypes);
 }

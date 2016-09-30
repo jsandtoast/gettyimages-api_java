@@ -19,43 +19,6 @@ public class BlendedImagesSearchService extends ImagesSearchService implements B
         return new BlendedImagesSearchService(credentials, baseUrl, new Hashtable());
     }
 
-    @Override
-    public BlendedImagesSearch withGraphicalStyles(List<GraphicalStyles> graphicalStyles) {
-//        EnumSet<GraphicalStyles> graphicalStylesForRequest;
-//
-//        if (map.containsKey(GraphicalStylesString)) {
-//            graphicalStylesForRequest = (EnumSet<GraphicalStyles>) map.get(GraphicalStylesString);
-//        } else {
-//            graphicalStylesForRequest = EnumSet.noneOf(GraphicalStyles.class);
-//        }
-//        if (graphicalStyles != GraphicalStyles.None) {
-//            graphicalStyles.add(graphicalStyles);
-//        }
-//
-        map.put(GraphicalStylesString, graphicalStyles); //TODO revisit this
-        return this;
-    }
-
-    @Override
-    public BlendedImagesSearch withSpecificPeople(String specificPeople) {
-        return null;
-    }
-
-    @Override
-    public BlendedImagesSearch withPrestigeContentOnly(boolean prestigeContentOnly) {
-        return null;
-    }
-
-    @Override
-    public BlendedImagesSearch withEventIds(String eventIds) {
-        return null;
-    }
-
-    @Override
-    public BlendedImagesSearch withLicenseModels(List<LicenseModel> licenseModels) {
-        return null;
-    }
-
     public CreativeImagesSearchService creative() {
         map.put(AssetTypeString, CreativeString);
         return new CreativeImagesSearchService(credentials, baseUrl, map);
