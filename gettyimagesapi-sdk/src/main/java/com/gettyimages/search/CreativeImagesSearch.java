@@ -1,7 +1,13 @@
 package com.gettyimages.search;
 
+import com.gettyimages.search.filters.GraphicalStyles;
+import com.gettyimages.search.filters.LicenseModel;
+
 public interface CreativeImagesSearch<T> {
-//    T withGraphicalStyles(List<GraphicalStyles> graphicalStyles);
-//    T withLicenseModels(List<LicenseModel> licenseModels);
-//    T withPrestigeContentOnly(boolean prestigeContentOnly);
+
+    T withGraphicalStyle(GraphicalStyles graphicalStyle);
+
+    T withLicenseModel(LicenseModel licenseModels);
+
+    T withPrestigeContentOnly(boolean prestigeContentOnly);
 }

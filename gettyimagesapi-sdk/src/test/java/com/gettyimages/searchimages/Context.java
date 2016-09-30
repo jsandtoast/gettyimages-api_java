@@ -1,19 +1,34 @@
 package com.gettyimages.searchimages;
 
+import com.gettyimages.SdkException;
 import com.gettyimages.SharedContext;
-import com.gettyimages.search.ImagesSearch;
+import com.gettyimages.search.BlendedImagesSearchService;
+import com.gettyimages.search.CreativeImagesSearchService;
+import com.gettyimages.search.EditorialImagesSearchService;
+import com.gettyimages.search.AbstractImagesSearch;
+import com.gettyimages.search.filters.EditorialGraphicalStyles;
+import com.gettyimages.search.filters.GraphicalStyles;
+import com.gettyimages.search.filters.LicenseModel;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+import static org.junit.Assert.fail;
 
 /**
  * Context class for search images scenarios
  */
 public class Context {
 
-    private ImagesSearch imagesSearch;
+    private AbstractImagesSearch imagesSearch;
     private JSONObject searchResult;
     private long resultCount;
     private JSONArray resultImages;
+    private AssetFamily imageFamily;
     private Context(){}
 
     private static class ContextHelper {
@@ -24,12 +39,97 @@ public class Context {
         return ContextHelper.INSTANCE;
     }
 
-    public ImagesSearch getImagesSearch() {
+    public void search() {
+        try {
+            String result = imagesSearch.executeAsync();
+            setSearchResult(new JSONObject(result));
+        } catch (SdkException e) {
+            fail("Search is supposed to successfully execute, but instead received: " + e.getLocalizedMessage());
+        }
+    }
+    
+    public void searchByPhrase(String phrase) {
+        imagesSearch.withPhrase(phrase);
+        search();
+    }
+
+    public void withLicenseModel(String modelStr) {
+        LicenseModel model;
+        switch(modelStr.toLowerCase()) {
+            case "rightsmanaged" : {
+                model = LicenseModel.RIGHTS_MANAGED;
+                break;
+            }
+            case "royaltyfree" : {
+                model = LicenseModel.ROYALTY_FREE;
+                break;
+            }
+            default:
+                model = LicenseModel.NONE;
+                break;
+        }
+        switch (imageFamily) {
+            case BLENDED:
+                ((BlendedImagesSearchService)imagesSearch).withLicenseModel(model);
+                break;
+            case CREATIVE:
+                ((CreativeImagesSearchService)imagesSearch).withLicenseModel(model);
+                break;
+        }
+    }
+
+    public void withCollectionFilterType(String filterType) {
+        Boolean includeCollectionFilterType = null;
+        switch(filterType.toLowerCase()) {
+            case "exclude" : {
+                includeCollectionFilterType = false;
+                break;
+            }
+            case "include" : {
+                includeCollectionFilterType = true;
+                break;
+            }
+        }
+        imagesSearch.withCollectionsFilterType(includeCollectionFilterType);
+    }
+
+    public void withEndDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(new Date());
+
+        switch (imageFamily) {
+            case BLENDED:
+                ((BlendedImagesSearchService) imagesSearch).withEndDate(date);
+                break;
+            case EDITORIAL:
+                ((EditorialImagesSearchService) imagesSearch).withEndDate(date);
+                break;
+        }
+    }
+
+    void withStartDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal = new GregorianCalendar();
+        cal.add(Calendar.DATE, -7);
+        String date = sdf.format(cal.getTime());
+
+        switch (imageFamily) {
+            case BLENDED:
+                ((BlendedImagesSearchService) imagesSearch).withStartDate(date);
+                break;
+            case EDITORIAL:
+                ((EditorialImagesSearchService) imagesSearch).withStartDate(date);
+                break;
+        }
+    }
+
+    public AbstractImagesSearch getImagesSearch() {
         return imagesSearch;
     }
 
     public void setImagesSearch(String imageFamily) {
-        this.imagesSearch = createImageSearchController(imageFamily);
+        this.imageFamily = AssetFamily.valueOf(imageFamily.toUpperCase());
+        this.imagesSearch = createImageSearchController();
     }
 
     public JSONObject getSearchResult() {
@@ -56,21 +156,21 @@ public class Context {
         this.resultImages = resultImages;
     }
 
-    private ImagesSearch createImageSearchController(String imageFamily) {
-        switch (imageFamily.toLowerCase()) {
-            case "creative" : {
+    private AbstractImagesSearch createImageSearchController() {
+        switch (imageFamily) {
+            case CREATIVE: {
                 return SharedContext.GetApiClientWithResourceOwnerCredentials()
                         .Search()
                         .Images()
-                        .Creative();
+                        .creative();
             }
-            case "editorial" : {
+            case EDITORIAL: {
                 return SharedContext.GetApiClientWithResourceOwnerCredentials()
                         .Search()
                         .Images()
-                        .Editorial();
+                        .editorial();
             }
-            case "blended" : {
+            case BLENDED: {
                 return SharedContext.GetApiClientWithResourceOwnerCredentials()
                         .Search()
                         .Images();
@@ -78,5 +178,56 @@ public class Context {
             default:
                 throw new IllegalArgumentException("Invalid image family: " + imageFamily);
         }
+    }
+
+    public void searchWithGraphicalStyle(String style) {
+        switch (imageFamily) {
+            case BLENDED:
+                ((BlendedImagesSearchService)imagesSearch).withGraphicalStyle(GraphicalStyles.valueOf(style.toUpperCase()));
+                break;
+            case CREATIVE:
+                ((CreativeImagesSearchService)imagesSearch).withGraphicalStyle(GraphicalStyles.valueOf(style.toUpperCase()));
+                break;
+            case EDITORIAL:
+                ((EditorialImagesSearchService)imagesSearch).withGraphicalStyle(EditorialGraphicalStyles.valueOf(style.toUpperCase()));
+                break;
+        }
+    }
+
+    public void withPrestigeContentOnly() {
+        switch (imageFamily) {
+            case BLENDED:
+                ((BlendedImagesSearchService)imagesSearch).withPrestigeContentOnly(true);
+                break;
+            case CREATIVE:
+                ((CreativeImagesSearchService)imagesSearch).withPrestigeContentOnly(true);
+                break;
+        }
+    }
+
+    public void withSpecificPeople() {
+        switch (imageFamily) {
+            case BLENDED:
+                ((BlendedImagesSearchService)imagesSearch).withSpecificPeople("dog");
+                break;
+            case EDITORIAL:
+                ((EditorialImagesSearchService)imagesSearch).withSpecificPeople("dog");
+                break;
+        }
+    }
+
+    public void withEventId() {
+        switch (imageFamily) {
+            case BLENDED:
+                ((BlendedImagesSearchService)imagesSearch).withEventIds("488068931");
+                break;
+            case EDITORIAL:
+                ((EditorialImagesSearchService)imagesSearch).withEventIds("488068931");
+                break;
+        }
+    }
+
+    public void withKeywordId() {
+        imagesSearch.withKeywordIds("62361"); // keyword id for dog
     }
 }
