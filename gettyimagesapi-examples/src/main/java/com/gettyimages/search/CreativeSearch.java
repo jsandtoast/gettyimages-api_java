@@ -16,8 +16,8 @@ public class CreativeSearch
         String searchTerm = "cat";
 
         try {
-            ImagesSearch search = client.Search()
-                .Images()
+            ImagesSearch search = client.search()
+                .images()
                 .creative()
                 .withPhrase(searchTerm)
                 .withPage(10);

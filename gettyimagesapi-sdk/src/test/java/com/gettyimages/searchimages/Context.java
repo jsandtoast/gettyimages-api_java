@@ -44,7 +44,7 @@ public class Context {
             String result = imagesSearch.executeAsync();
             setSearchResult(new JSONObject(result));
         } catch (SdkException e) {
-            fail("Search is supposed to successfully execute, but instead received: " + e.getLocalizedMessage());
+            fail("search is supposed to successfully execute, but instead received: " + e.getLocalizedMessage());
         }
     }
     
@@ -160,20 +160,20 @@ public class Context {
         switch (imageFamily) {
             case CREATIVE: {
                 return SharedContext.GetApiClientWithResourceOwnerCredentials()
-                        .Search()
-                        .Images()
+                        .search()
+                        .images()
                         .creative();
             }
             case EDITORIAL: {
                 return SharedContext.GetApiClientWithResourceOwnerCredentials()
-                        .Search()
-                        .Images()
+                        .search()
+                        .images()
                         .editorial();
             }
             case BLENDED: {
                 return SharedContext.GetApiClientWithResourceOwnerCredentials()
-                        .Search()
-                        .Images();
+                        .search()
+                        .images();
             }
             default:
                 throw new IllegalArgumentException("Invalid image family: " + imageFamily);
