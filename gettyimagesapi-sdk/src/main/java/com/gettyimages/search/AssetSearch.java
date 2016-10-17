@@ -1,6 +1,7 @@
 package com.gettyimages.search;
 
 import com.gettyimages.search.filters.EditorialSegment;
+import com.gettyimages.search.filters.Orientation;
 import com.gettyimages.search.filters.ProductType;
 
 /**
@@ -12,6 +13,8 @@ public interface AssetSearch<T extends AssetSearch<T>> {
     T withExcludeNudity(boolean val);
 
     T withKeywordIds(String keywordIds);
+
+    T withOrientation(Orientation orientation);
 
     T withPage(int val);
 

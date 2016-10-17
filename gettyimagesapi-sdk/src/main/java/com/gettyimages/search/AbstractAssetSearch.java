@@ -250,7 +250,7 @@ public abstract class AbstractAssetSearch<T extends AssetSearch<T>> implements A
         return (T) this;
     }
 
-    public void withOrientation(Orientation val) {
+    public T withOrientation(Orientation val) {
         EnumSet<Orientation> orientations;
 
         if (map.containsKey(OrientationsParameterName)) {
@@ -263,6 +263,7 @@ public abstract class AbstractAssetSearch<T extends AssetSearch<T>> implements A
         }
 
         map.put(OrientationsParameterName, orientations);
+        return (T) this;
     }
 
     public T withEditorialSegment(EditorialSegment seg) {
