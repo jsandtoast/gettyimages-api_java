@@ -31,7 +31,7 @@ public class Download {
         return this;
     }
 
-    public String ExecuteAsync() throws SdkException {
+    public String executeAsync() throws SdkException {
         if (assetId == null || assetId.length() == 0)
         {
             throw new SdkException(MustSpecifyAtLeastOneImageIdMessage);
