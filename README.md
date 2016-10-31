@@ -1,9 +1,5 @@
 # Getty Images API SDK 
 
-# Deprecated
-
-**The SDK's have been deprecated and are no longer being maintained as of November 2016.**
-
 Seamlessly integrate Getty Images' expansive digital content, powerful search technology, and rich metadata into your publishing tools, products and services!
 
 - Search for images from our extensive creative and editorial catalogs.
@@ -43,6 +39,7 @@ mvn exec:java -Dexec.mainClass="com.gettyimages.search.CreativeSearch"
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/ConnectSdk/fork )
+2. Update the submodules (`git submodule update --init`)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
@@ -50,4 +47,4 @@ mvn exec:java -Dexec.mainClass="com.gettyimages.search.CreativeSearch"
 
 Our wish-list is (in no particular order):
 * Add more examples to gettyimagesapi-examples
-* Implement Getty Images [BDD Scenarios](https://github.com/gettyimages/gettyimages-api_bdd)
+* Implement more features!
