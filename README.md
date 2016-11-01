@@ -45,6 +45,17 @@ mvn exec:java -Dexec.mainClass="com.gettyimages.search.CreativeSearch"
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
+### Setup Environment Variables
+
+The tests expect credentials to be stored in environment variables. The following are required to be set:
+
+* *GettyImagesApi_ApiKey*: API key assigned when you registered
+* *GettyImagesApi_ApiSecret*: API secret assigned when you registered
+* *GettyImagesApi_UserName*: a Getty Images user. Create one at the Getty Images website.
+* *GettyImagesApi_UserPassword*: Getty Images user's password
+
+## Wish List
 Our wish-list is (in no particular order):
+
 * Add more examples to gettyimagesapi-examples
 * Implement more features!
