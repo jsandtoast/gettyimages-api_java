@@ -9,13 +9,12 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CreativeImagesSearchService extends AbstractImagesSearch implements CreativeImagesSearch<CreativeImagesSearchService>{
+public class CreativeImagesSearchService extends AbstractImagesSearch {
 
     public CreativeImagesSearchService(Credentials credentials, String baseUrl, Map map) {
         super(credentials, baseUrl, map);
     }
 
-    @Override
     public String executeAsync() throws SdkException {
         Map<String, String> queryParams = new HashMap<>();
         if (!getGraphicalStyles().isEmpty()) {
@@ -34,7 +33,6 @@ public class CreativeImagesSearchService extends AbstractImagesSearch implements
         return this.executeAsync(queryParams);
     }
 
-    @Override
     public CreativeImagesSearchService withGraphicalStyle(GraphicalStyles graphicalStyle) {
         EnumSet<GraphicalStyles> segments;
         if (map.containsKey(GraphicalStylesString)) {
@@ -50,7 +48,6 @@ public class CreativeImagesSearchService extends AbstractImagesSearch implements
         return this;
     }
 
-    @Override
     public CreativeImagesSearchService withLicenseModel(LicenseModel licenseModel) {
         EnumSet<LicenseModel> licenseModels;
 
@@ -66,7 +63,6 @@ public class CreativeImagesSearchService extends AbstractImagesSearch implements
         return this;
     }
 
-    @Override
     public CreativeImagesSearchService withPrestigeContentOnly(boolean prestigeContentOnly) {
         map.put(PrestigeContentOnlyParameterName, prestigeContentOnly);
         return this;

@@ -8,13 +8,12 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EditorialImagesSearchService extends AbstractImagesSearch implements EditorialImagesSearch<EditorialImagesSearchService>{
+public class EditorialImagesSearchService extends AbstractImagesSearch {
 
     public EditorialImagesSearchService(Credentials credentials, String baseUrl, Map map) {
         super(credentials, baseUrl, map);
     }
 
-    @Override
     public String executeAsync() throws SdkException {
         Map<String, String> queryParams = new HashMap<>();
         if (!getEditorialGraphicalStyles().isEmpty()) {
@@ -37,19 +36,16 @@ public class EditorialImagesSearchService extends AbstractImagesSearch implement
         return this.executeAsync(queryParams);
     }
 
-    @Override
     public EditorialImagesSearchService withEndDate(String endDate) {
         map.put(EndDateParameterName, endDate);
         return this;
     }
 
-    @Override
     public EditorialImagesSearchService withEventIds(String ids) {
         map.put(EventIdsParameterName, ids);
         return this;
     }
 
-    @Override
     public EditorialImagesSearchService withGraphicalStyle(EditorialGraphicalStyles graphicalStyles) {
         EnumSet<EditorialGraphicalStyles> segments;
         if (map.containsKey(GraphicalStylesString)) {
@@ -65,13 +61,11 @@ public class EditorialImagesSearchService extends AbstractImagesSearch implement
         return this;
     }
 
-    @Override
     public EditorialImagesSearchService withSpecificPeople(String people) {
         map.put(SpecificPeopleParameterName, people);
         return this;
     }
 
-    @Override
     public EditorialImagesSearchService withStartDate(String startDate) {
         map.put(StartDateParameterName, startDate);
         return this;

@@ -9,7 +9,7 @@ import com.gettyimages.search.filters.Orientation;
 
 import java.util.*;
 
-public abstract class AbstractAssetSearch<T extends AssetSearch<T>> implements AssetSearch<T> {
+public abstract class AbstractAssetSearch<T extends AbstractAssetSearch<T>> {
 
     static final String GraphicalStylesString = "graphical_styles";
     static final String AgeOfPeopleParameterName = "age_of_people";
@@ -51,7 +51,7 @@ public abstract class AbstractAssetSearch<T extends AssetSearch<T>> implements A
         this.map = map;
     }
 
-    String executeAsync(Map<String, String> queryParams) throws SdkException {
+    public String executeAsync(Map<String, String> queryParams) throws SdkException {
         String path;
 
         String assetType = getAssetType();

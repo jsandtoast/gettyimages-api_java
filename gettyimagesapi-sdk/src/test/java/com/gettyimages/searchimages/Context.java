@@ -2,10 +2,7 @@ package com.gettyimages.searchimages;
 
 import com.gettyimages.SdkException;
 import com.gettyimages.SharedContext;
-import com.gettyimages.search.BlendedImagesSearchService;
-import com.gettyimages.search.CreativeImagesSearchService;
-import com.gettyimages.search.EditorialImagesSearchService;
-import com.gettyimages.search.AbstractImagesSearch;
+import com.gettyimages.search.*;
 import com.gettyimages.search.filters.EditorialGraphicalStyles;
 import com.gettyimages.search.filters.GraphicalStyles;
 import com.gettyimages.search.filters.LicenseModel;
@@ -41,7 +38,18 @@ public class Context {
 
     public void search() {
         try {
-            String result = imagesSearch.executeAsync();
+            String result = "";
+            switch (imageFamily) {
+                case BLENDED:
+                    result = ((BlendedImagesSearchService)imagesSearch).executeAsync();
+                    break;
+                case CREATIVE:
+                    result = ((CreativeImagesSearchService)imagesSearch).executeAsync();
+                    break;
+                case EDITORIAL:
+                    result = ((EditorialImagesSearchService)imagesSearch).executeAsync();
+                    break;
+            }
             setSearchResult(new JSONObject(result));
         } catch (SdkException e) {
             fail("search is supposed to successfully execute, but instead received: " + e.getLocalizedMessage());

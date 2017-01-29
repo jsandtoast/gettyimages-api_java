@@ -7,7 +7,7 @@ import com.gettyimages.search.filters.LicenseModel;
 
 import java.util.*;
 
-public class BlendedImagesSearchService extends AbstractImagesSearch implements BlendedImagesSearch<BlendedImagesSearch>{
+public class BlendedImagesSearchService extends AbstractImagesSearch {
 
     private final String EditorialString = "editorial";
     private final String CreativeString = "creative";
@@ -20,13 +20,11 @@ public class BlendedImagesSearchService extends AbstractImagesSearch implements 
         return new BlendedImagesSearchService(credentials, baseUrl, new Hashtable());
     }
 
-    @Override
     public CreativeImagesSearchService creative() {
         map.put(AssetTypeString, CreativeString);
         return new CreativeImagesSearchService(credentials, baseUrl, map);
     }
 
-    @Override
     public String executeAsync() throws SdkException {
         Map<String, String> queryParams = new HashMap<>();
         if (!getGraphicalStyles().isEmpty()) {
@@ -50,26 +48,22 @@ public class BlendedImagesSearchService extends AbstractImagesSearch implements 
         return this.executeAsync(queryParams);
     }
 
-    @Override
     public EditorialImagesSearchService editorial() {
         map.put(AssetTypeString, EditorialString);
         return new EditorialImagesSearchService(credentials, baseUrl, map);
     }
 
-    @Override
-    public BlendedImagesSearch withEndDate(String endDate) {
+    public BlendedImagesSearchService withEndDate(String endDate) {
         map.put(EndDateParameterName, endDate);
         return this;
     }
 
-    @Override
-    public BlendedImagesSearch withEventIds(String ids) {
+    public BlendedImagesSearchService withEventIds(String ids) {
         map.put(EventIdsParameterName, ids);
         return this;
     }
 
-    @Override
-    public BlendedImagesSearch withGraphicalStyle(GraphicalStyles graphicalStyle) {
+    public BlendedImagesSearchService withGraphicalStyle(GraphicalStyles graphicalStyle) {
         EnumSet<GraphicalStyles> segments;
         if (map.containsKey(GraphicalStylesString)) {
             segments = (EnumSet<GraphicalStyles>) map.get(GraphicalStylesString);
@@ -84,7 +78,6 @@ public class BlendedImagesSearchService extends AbstractImagesSearch implements 
         return this;
     }
 
-    @Override
     public BlendedImagesSearchService withLicenseModel(LicenseModel licenseModel) {
         EnumSet<LicenseModel> licenseModels;
 
@@ -100,20 +93,17 @@ public class BlendedImagesSearchService extends AbstractImagesSearch implements 
         return this;
     }
 
-    @Override
-    public BlendedImagesSearch withPrestigeContentOnly(boolean prestigeContentOnly) {
+    public BlendedImagesSearchService withPrestigeContentOnly(boolean prestigeContentOnly) {
         map.put(PrestigeContentOnlyParameterName, prestigeContentOnly);
         return this;
     }
 
-    @Override
-    public BlendedImagesSearch withSpecificPeople(String people) {
+    public BlendedImagesSearchService withSpecificPeople(String people) {
         map.put(SpecificPeopleParameterName, people);
         return this;
     }
 
-    @Override
-    public BlendedImagesSearch withStartDate(String startDate) {
+    public BlendedImagesSearchService withStartDate(String startDate) {
         map.put(StartDateParameterName, startDate);
         return this;
     }
