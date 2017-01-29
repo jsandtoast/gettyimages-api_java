@@ -3,10 +3,10 @@ package com.gettyimages;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
@@ -15,7 +15,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Map;
-import java.util.Properties;
 
 public class WebHelper {
     protected String baseUrl;
@@ -27,46 +26,35 @@ public class WebHelper {
     }
 
     public String Get(Map queryParams, String path) throws SdkException {
-        try {
-            String query = BuildQuery(queryParams);
-            URL url = new URL(baseUrl + path + "?" + query);
-            HttpClient httpClient = new DefaultHttpClient();
-            HttpGet httpGet = new HttpGet(url.toString());
-
-            addHeaders(httpGet);
-
+        try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()){
+            HttpGet httpGet = RetrieveGetRequest(queryParams, path);
             HttpResponse response = httpClient.execute(httpGet);
-            HttpEntity responseEntity = response.getEntity();
-            String content = EntityUtils.toString(responseEntity);
-
-            return content;
-        } catch (MalformedURLException ex) {
+            return GetResponse(response);
         } catch (IOException ex) {
+            //TODO what to return here?
         }
-
-        return "{null}";
+        return "";
     }
 
     public String PostQuery(Map<String, String> queryParams, String path) throws SdkException {
-        try {
-            String query = BuildQuery(queryParams);
-            URL url = new URL(baseUrl + path + "?" + query);
-            HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(url.toString());
-
-            addHeaders(httpPost);
-
+        try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
+            HttpPost httpPost = RetrievePostRequest(queryParams, path);
             HttpResponse response = httpClient.execute(httpPost);
-            HttpEntity responseEntity = response.getEntity();
-            String content = EntityUtils.toString(responseEntity);
-
-            return content;
+            return GetResponse(response);
         } catch (MalformedURLException ex) {
             String s = ex.toString();
         } catch (IOException ex) {
             String s = ex.toString();
         }
-        return null;
+        return "";
+    }
+
+    private HttpPost RetrievePostRequest(Map<String, String> queryParams, String path) throws MalformedURLException, SdkException {
+        String query = BuildQuery(queryParams);
+        URL url = new URL(baseUrl + path + "?" + query);
+        HttpPost httpPost = new HttpPost(url.toString());
+        addHeaders(httpPost);
+        return httpPost;
     }
 
     private void addHeaders(HttpRequest request) throws SdkException {
@@ -82,15 +70,12 @@ public class WebHelper {
                 break;
             }
         }
-
         request.addHeader("User-Agent", getUserAgent());
     }
 
     private String getUserAgent()
     {
         String httpAgentString = "";
-        Properties properties = System.getProperties();
-
         String httpAgent = System.getProperty("http.agent");
         if (httpAgent != null) {
             httpAgentString = httpAgent.replace(")", "").replace(" (", "; ");
@@ -99,11 +84,10 @@ public class WebHelper {
             String osName = System.getProperty("os.name");
             String osArch = System.getProperty("os.arch");
             String javaVersion = System.getProperty("java.version");
-
             httpAgentString = String.format("%s; %s; Java %s", osName, osArch, javaVersion);
         }
 
-        String userAgentString = String.format("ConnectSDK/%s (%s)", ApiClient.Version, httpAgentString);
+        String userAgentString = String.format("GettyApiSdk/%s (%s)", ApiClient.Version, httpAgentString);
         return userAgentString;
     }
 
@@ -123,7 +107,21 @@ public class WebHelper {
         return sb.toString();
     }
 
-    static String urlEncodeUTF8(String s) {
+    private String GetResponse(HttpResponse response) throws IOException {
+        HttpEntity responseEntity = response.getEntity();
+        String content = EntityUtils.toString(responseEntity);
+        return content;
+    }
+
+    private HttpGet RetrieveGetRequest(Map queryParams, String path) throws MalformedURLException, SdkException {
+        String query = BuildQuery(queryParams);
+        URL url = new URL(baseUrl + path + "?" + query);
+        HttpGet httpGet = new HttpGet(url.toString());
+        addHeaders(httpGet);
+        return httpGet;
+    }
+
+    private static String urlEncodeUTF8(String s) {
         try {
             return URLEncoder.encode(s, "UTF-8");
         } catch (UnsupportedEncodingException e) {
